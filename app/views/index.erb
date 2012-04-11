@@ -1,0 +1,46 @@
+<section>
+  <div class="subnav" style="margin-bottom:10px">
+    <ul class="nav nav-pills">
+      <% if @clickx %>
+        <li><a href="#guessName">Guess Name</a></li>
+      <% else %>
+        <li><a href="#paintNew">complete paint</a></li>
+      <% end %>
+      <li><a href="#typography"></a></li>
+    </ul>
+  </div>
+  <canvas class="well" id="canvasInAPerfectWorld" width="940" height="580" style="padding:0px"></canvas>
+</section>
+<% if @clickx %>
+  <script type="text/javascript" charset="utf-8">
+    clickX = [<%= @clickx %>];
+    clickY = [<%= @clicky %>];
+    clickDrag = [<%= @clickdrag %>];
+    canvas = document.getElementById('canvasInAPerfectWorld');
+    context = document.getElementById('canvasInAPerfectWorld').getContext("2d");
+    showPicture();
+    in_guess_page = true;
+    var paint_id = <%= params[:id] %>;
+  </script>
+
+  <form id="guessName" method="post" >
+    <h3>Guess the picture's name. Common! I know you guys can do it!</h3>
+    <% if @description %>
+      <p>description: <%= @description %></p>
+    <% end %>
+    <p>name: <input type="text" name="name" /></p>
+    <p><input type="submit" /></p>
+  </form>
+<% else %>
+  <form id="paintNew" method="post">
+    <h3>Painting complete</h3>
+    <p>Your friend will see the description and your paint, and then let him guess the name.</p>
+    <p>
+    description: <textarea name="description" cols="30", rows="4"></textarea>
+    </p>
+    <p>
+    name: <input type="text" name="name" />
+    <input type="submit" />
+    </p>
+  </form>
+<% end %>
